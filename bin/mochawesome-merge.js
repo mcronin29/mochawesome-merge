@@ -57,7 +57,7 @@ function formatDuration(duration) {
   const durationSeconds = duration / 1000;
   const hours = Math.floor(durationSeconds/3600);
   const minutes = Math.floor((durationSeconds - hours * 3600) / 60);
-  const seconds = durationSeconds - (hours * 3600) - (minutes * 60);
+  const seconds = Math.round(durationSeconds - (hours * 3600) - (minutes * 60));
   return (hours > 0 ? hours.toString() + 'h ' : '') + (hours > 0 || minutes > 0 ? minutes.toString() + 'm ' : '' ) + seconds.toString() + 's';
 }
 
