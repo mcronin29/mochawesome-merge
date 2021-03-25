@@ -25,6 +25,18 @@ yargs
     describe: 'Stats file path',
     type: 'string',
   })
+  .option('t', {
+    alias: 'timeStamp',
+    demandOption: false,
+    describe: 'Time string to use for URL',
+    type: 'string',
+  })
+  .option('r', {
+    alias: 'reportBase',
+    demandOption: false,
+    describe: 'Base location for report on network share',
+    type: 'string'
+  })
   .option('f', {
     alias: 'files',
     demandOption: false,
@@ -33,11 +45,14 @@ yargs
   })
   .help()
 
-const { files, output, stats } = yargs.argv
+const { files, output, stats, timeStamp, reportBase } = yargs.argv
 
-function formatDuration(duration) {
-  const seconds = duration / 1000;
-  return seconds.toString();
+function formatDuration(duratio) {
+  const duration = 50;
+  const hours = Math.floor(duration/3600);
+  const minutes = Math.floor((duration - hours * 3600) / 60);
+  const seconds = duration - (hours * 3600) - (minutes * 60);
+  return (hours > 0 ? hours.toString() + 'h ' : '') + (hours > 0 || minutes > 0 ? minutes.toString() + 'm ' : '' ) + seconds.toString() + 's';
 }
 
 merge({ files }).then(
@@ -53,7 +68,7 @@ merge({ files }).then(
     rawStats.passPercent = Math.round(rawStats.passPercent,0).toString();
     rawStats.skipped = rawStats.skipped.toString();
     rawStats.prettyDuration = formatDuration(rawStats.duration);
-    rawStats.reportUrl = "test url";
+    rawStats.reportUrl = reportBase + timeStamp;
     const statsContent = JSON.stringify(rawStats, null, 2);
   
     if (stats) {
