@@ -54,9 +54,10 @@ yargs
 const { files, output, stats, timeStamp, reportBase, reportName } = yargs.argv
 
 function formatDuration(duration) {
-  const hours = Math.floor(duration/3600);
-  const minutes = Math.floor((duration - hours * 3600) / 60);
-  const seconds = duration - (hours * 3600) - (minutes * 60);
+  const durationSeconds = duration / 1000;
+  const hours = Math.floor(durationSeconds/3600);
+  const minutes = Math.floor((durationSeconds - hours * 3600) / 60);
+  const seconds = durationSeconds - (hours * 3600) - (minutes * 60);
   return (hours > 0 ? hours.toString() + 'h ' : '') + (hours > 0 || minutes > 0 ? minutes.toString() + 'm ' : '' ) + seconds.toString() + 's';
 }
 
