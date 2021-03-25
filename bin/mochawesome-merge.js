@@ -37,6 +37,12 @@ yargs
     describe: 'Base location for report on network share',
     type: 'string'
   })
+  .option('n', {
+    alias: 'reportName',
+    demandOption: false,
+    describe: 'Name of HTML file for mochawesome-bundle',
+    type: 'string'
+  })
   .option('f', {
     alias: 'files',
     demandOption: false,
@@ -45,7 +51,7 @@ yargs
   })
   .help()
 
-const { files, output, stats, timeStamp, reportBase } = yargs.argv
+const { files, output, stats, timeStamp, reportBase, reportName } = yargs.argv
 
 function formatDuration(duratio) {
   const duration = 50;
@@ -68,7 +74,7 @@ merge({ files }).then(
     rawStats.passPercent = Math.round(rawStats.passPercent,0).toString();
     rawStats.skipped = rawStats.skipped.toString();
     rawStats.prettyDuration = formatDuration(rawStats.duration);
-    rawStats.reportUrl = reportBase + timeStamp;
+    rawStats.reportUrl = reportBase + timeStamp + '/' + reportName;
     const statsContent = JSON.stringify(rawStats, null, 2);
   
     if (stats) {
