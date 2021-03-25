@@ -74,7 +74,7 @@ merge({ files }).then(
     rawStats.passPercent = Math.round(rawStats.passPercent,0).toString();
     rawStats.skipped = rawStats.skipped.toString();
     rawStats.prettyDuration = formatDuration(rawStats.duration);
-    rawStats.reportUrl = reportBase + timeStamp + '/' + reportName;
+    rawStats.reportUrl = reportBase + timeStamp + (reportName ? '/' + reportName : '');
     const statsContent = JSON.stringify(rawStats, null, 2);
   
     if (stats) {

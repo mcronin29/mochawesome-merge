@@ -1,6 +1,6 @@
 {
   "name": "@mcronin29/mochawesome-merge",
-  "version": "0.0.2-development",
+  "version": "0.0.3-development",
   "description": "Merge several Mochawesome JSON reports",
   "main": "lib/index.js",
   "bin": {
